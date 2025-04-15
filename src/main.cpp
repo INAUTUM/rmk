@@ -17,6 +17,7 @@ void printHelp() {
          << "close_shift\n"
          << "add_product <штрих-код/название> <количество>\n"
          << "close_receipt <cash/card> [сумма]\n"
+         << "help\n"
          << "exit\n";
 }
 
@@ -32,6 +33,8 @@ void processCommand(const string& commandLine) {
             shift.open(name, cash);
             cout << "Смена открыта\n";
         } else cerr << "Ошибка: неверные параметры\n";
+    } else if (cmd == "help") {
+        printHelp(); 
     } else if (cmd == "close_shift") {
         shift.close();
     } else if (cmd == "add_product") {
@@ -75,7 +78,7 @@ void processCommand(const string& commandLine) {
 }
 
 int main() {
-    if (!productDB.loadFromFile("../data/products.csv")) {
+    if (!productDB.loadFromFile("data/products.csv")) {
         cerr << "Ошибка загрузки товаров\n";
         return 1;
     }
